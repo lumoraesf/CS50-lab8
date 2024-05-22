@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+    </head>
+    <body>
+
+        <div class="jumbotron">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>What is the capital of the Czech Republic?</h3>
+                <button type="button" class="wrong">Doha</button>
+                <button type="button" class="right">Prague</button>
+                <button type="button" class="wrong">Beirut</button>
+                <button type="button" class="wrong">Baghdad</button>
+                <button type="button" class="wrong">Abu Dhabi</button>
+
+                <!--displays the correct/incorrect message-->
+                <p id="message"></p>
+            </div>
+            <script>
+                // every time you click the right answer
+                const right = document.getElementsByClassName("right");
+                let isGreen = false;
+                let messageElement = document.getElementById("message");
+                right[0].addEventListener("click", function(e) {
+                    if (isGreen) {
+                        e.target.style.backgroundColor = "#d9edff";
+                        messageElement.textContent = "";
+                    } else {
+                        e.target.style.backgroundColor = "#00ff00";
+                        messageElement.style.color = "#00ff00";
+                        messageElement.style.fontWeight = "bold";
+                        messageElement.textContent = "Correct!";
+                    }
+                    isGreen = !isGreen;
+                });
+
+                // every time you click the wrong answer
+                // Array.from is used to convert the HTML to an array
+                // forEach is to loop over each button with the class "wrong"
+                const wrong = document.getElementsByClassName("wrong");
+                let isRed = false;
+                Array.from(wrong).forEach(function(button) {
+                    button.addEventListener("click", function(e) {
+                        if (isRed) {
+                        e.target.style.backgroundColor = "#d9edff";
+                        messageElement.textContent = "";
+                    } else {
+                        e.target.style.backgroundColor = "#ff0000";
+                        messageElement.style.color = "#ff0000";
+                        messageElement.style.fontWeight = "bold";
+                        messageElement.textContent = "Incorrect";
+                    }
+                    isRed = !isRed;
+                    });
+                });
+            </script>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>What is the name of the current president of the USA?</h3>
+                <input type="text" id="q" name="q">
+                <input type="submit" id="btn" value="Check Answer">
+                <p id="letyaknow"></p>
+            </div>
+            <script>
+                let messageElement2 = document.getElementById("letyaknow");
+
+                // the comparison only happens when you click the button
+                const myButton = document.getElementById("btn");
+                btn.addEventListener("click", function(e) {
+                    // accessing the user's answer
+                    let inputField = document.getElementById("q");
+                    let userAnswer = inputField.value;
+
+                    // telling the system what's the correct answer
+                    let correctAnswer = "joe biden";
+
+                    // making the comparison case insensitive
+                    let caseUserAnswer = userAnswer.toLowerCase();
+                    let caseCorrectAnswer = correctAnswer.toLowerCase();
+
+                    if (caseUserAnswer === caseCorrectAnswer) {
+                        // correct case
+                        inputField.style.backgroundColor = "rgba(0, 255, 0, 0.6)";
+                        messageElement2.style.color = "#00ff00";
+                        messageElement2.style.fontWeight = "bold";
+                        messageElement2.textContent = "Correct!";
+                    } else {
+                        // incorrect case
+                        inputField.style.backgroundColor = "rgba(255, 0, 0, 0.6)";
+                        messageElement2.style.color = "#ff0000";
+                        messageElement2.style.fontWeight = "bold";
+                        messageElement2.textContent = "Incorrect";
+                    }
+                });
+            </script>
+        </div>
+    </body>
+</html>
